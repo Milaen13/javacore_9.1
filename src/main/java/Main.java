@@ -26,9 +26,9 @@ public class Main {
         CloseableHttpResponse response = httpClient.execute(request);
         List<Cat> cats = mapper.readValue(response.getEntity().getContent(),
                 new TypeReference<>() {});
-        cats.stream()
-                .filter(upvote -> upvote.getUpvotes() != null)
-                .filter(upvote -> Integer.parseInt(upvote.getUpvotes()) > 0)
-                .forEach(System.out::println);
+        for (Cat value : cats)
+            if (value.getUpvotes() != null && value.getUpvotes() > 0) {
+                System.out.println(value);
+            }
     }
 }
